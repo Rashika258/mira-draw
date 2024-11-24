@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from "next/image";
 import { CreateOrganization } from "@clerk/nextjs";
 
@@ -9,11 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-interface Props {
-
-}
-
-const EmptyOrg: React.FC<Props> = (props) => {
+export const EmptyOrg = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <Image
@@ -42,6 +37,4 @@ const EmptyOrg: React.FC<Props> = (props) => {
       </div>
     </div>
   );
-}
-
-export default EmptyOrg;
+};

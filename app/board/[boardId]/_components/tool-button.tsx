@@ -1,18 +1,25 @@
-import Hint from "@/components/hint";
-import { Button } from "@/components/ui/button";
-import { LucideIcon } from "lucide-react";
-import * as React from "react";
+"use client";
 
-export interface IToolButtonProps {
+import { LucideIcon } from "lucide-react";
+
+import { Hint } from "@/components/hint";
+import { Button } from "@/components/ui/button";
+
+interface ToolButtonProps {
   label: string;
   icon: LucideIcon;
   onClick: () => void;
   isActive?: boolean;
   isDisabled?: boolean;
-}
+};
 
-export function ToolButton(props: IToolButtonProps) {
-  const { label, icon: Icon, onClick, isActive, isDisabled } = props;
+export const ToolButton = ({
+  label,
+  icon: Icon,
+  onClick,
+  isActive,
+  isDisabled,
+}: ToolButtonProps) => {
   return (
     <Hint label={label} side="right" sideOffset={14}>
       <Button
@@ -25,4 +32,4 @@ export function ToolButton(props: IToolButtonProps) {
       </Button>
     </Hint>
   );
-}
+};

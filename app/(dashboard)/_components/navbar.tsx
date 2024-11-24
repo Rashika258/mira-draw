@@ -1,14 +1,17 @@
-import React from 'react';
-import SearchInput from './search-input';
-import { OrganizationSwitcher, useOrganization, UserButton } from '@clerk/nextjs';
-import InviteButton from './invite-button';
+"use client";
 
-interface Props {
+import { 
+  UserButton, 
+  OrganizationSwitcher, 
+  useOrganization
+} from "@clerk/nextjs";
 
-}
+import { SearchInput } from "./search-input";
+import { InviteButton } from "./invite-button";
 
-const Navbar: React.FC<Props> = (props) => {
-    const { organization } = useOrganization();
+export const Navbar = () => {
+  const { organization } = useOrganization();
+
   return (
     <div className="flex items-center gap-x-4 p-5">
       <div className="hidden lg:flex lg:flex-1">
@@ -44,6 +47,4 @@ const Navbar: React.FC<Props> = (props) => {
       <UserButton />
     </div>
   );
-}
-
-export default Navbar;
+};

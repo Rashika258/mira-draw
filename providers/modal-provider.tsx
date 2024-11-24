@@ -1,9 +1,10 @@
-"use client"
+"use client";
+
+import { useEffect, useState } from "react";
 
 import { RenameModal } from "@/components/modals/rename-modal";
-import React, { useEffect, useState } from "react";
 
-const ModalProvider = () => {
+export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -13,7 +14,10 @@ const ModalProvider = () => {
   if (!isMounted) {
     return null;
   }
-  return <RenameModal />;
+  
+  return (
+    <>
+      <RenameModal />
+    </>
+  );
 };
-
-export default ModalProvider;

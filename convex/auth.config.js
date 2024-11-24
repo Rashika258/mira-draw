@@ -1,10 +1,8 @@
-
-
 export default {
-    providers: [
-      {
-        domain: "https://premium-pug-98.clerk.accounts.dev",
-        applicationID: "convex",
-      },
-    ]
-  };
+  providers: [
+    {
+      domain: "https://winning-jaybird-45.clerk.accounts.dev",
+      applicationID: "convex",
+    },
+  ]
+};

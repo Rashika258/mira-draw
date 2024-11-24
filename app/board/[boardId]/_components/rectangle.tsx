@@ -1,16 +1,19 @@
 import { colorToCss } from "@/lib/utils";
 import { RectangleLayer } from "@/types/canvas";
-import * as React from "react";
 
-export interface IRectangleProps {
+interface RectangleProps {
   id: string;
   layer: RectangleLayer;
   onPointerDown: (e: React.PointerEvent, id: string) => void;
   selectionColor?: string;
-}
+};
 
-export function Rectangle(props: IRectangleProps) {
-  const { id, layer, onPointerDown, selectionColor } = props;
+export const Rectangle = ({
+  id,
+  layer,
+  onPointerDown,
+  selectionColor,
+}: RectangleProps) => {
   const { x, y, width, height, fill } = layer;
 
   return (
@@ -29,4 +32,4 @@ export function Rectangle(props: IRectangleProps) {
       stroke={selectionColor || "transparent"}
     />
   );
-}
+};

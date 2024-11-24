@@ -1,19 +1,26 @@
-import { RoomProvider } from "@/liveblocks.config";
-import { LiveList, LiveMap, LiveObject } from "@liveblocks/client";
-import React, { ReactNode } from "react";
-import { Layer } from "@/types/canvas";
-import { ClientSideSuspense } from "@liveblocks/react";
+"use client";
 
-interface Props {
-  children: ReactNode;
+import { ReactNode } from "react";
+import { ClientSideSuspense } from "@liveblocks/react";
+import { LiveMap, LiveList, LiveObject } from "@liveblocks/client";
+
+import { Layer } from "@/types/canvas";
+import { RoomProvider } from "@/liveblocks.config";
+
+interface RoomProps { 
+  children: ReactNode
   roomId: string;
   fallback: NonNullable<ReactNode> | null;
-}
+};
 
-const Room: React.FC<Props> = (props) => {
-  const { children, roomId, fallback } = props;
+export const Room = ({ 
+  children,
+  roomId,
+  fallback,
+}: RoomProps) => {
   return (
-    <RoomProvider
+    <RoomProvider 
+      id={roomId} 
       initialPresence={{
         cursor: null,
         selection: [],
@@ -24,7 +31,6 @@ const Room: React.FC<Props> = (props) => {
         layers: new LiveMap<string, LiveObject<Layer>>(),
         layerIds: new LiveList(),
       }}
-      id={roomId}
     >
       <ClientSideSuspense fallback={fallback}>
         {() => children}
@@ -32,5 +38,3 @@ const Room: React.FC<Props> = (props) => {
     </RoomProvider>
   );
 };
-
-export default Room;

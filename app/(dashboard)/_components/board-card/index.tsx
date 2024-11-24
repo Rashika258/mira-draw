@@ -1,64 +1,66 @@
-import Actions from '@/components/actions';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useAuth } from '@clerk/nextjs';
-import { Overlay } from '@radix-ui/react-dialog';
-import { MoreHorizontal } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+"use client";
+
+import { toast } from "sonner";
+import Link from "next/link";
+import Image from "next/image";
+import { useAuth } from "@clerk/nextjs";
+import { MoreHorizontal } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import Footer from './footer';
-import { useApiMutation } from '@/hooks/use-api-mutation';
-import { toast } from 'sonner';
+
+import { api } from "@/convex/_generated/api";
+import { Actions } from "@/components/actions";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+
+import { Footer } from "./footer";
+import { Overlay } from "./overlay";
 
 interface BoardCardProps {
-    id: string;
-    title: string;
-    authorName: string;
-    authorId: string;
-    createdAt: number;
-    imageUrl: string;
-    orgId: string;
-    isFavorite: boolean;
+  id: string;
+  title: string;
+  authorName: string;
+  authorId: string;
+  createdAt: number;
+  imageUrl: string;
+  orgId: string;
+  isFavorite: boolean;
+};
+
+export const BoardCard = ({
+  id,
+  title,
+  authorId,
+  authorName,
+  createdAt,
+  imageUrl,
+  orgId,
+  isFavorite,
+}: BoardCardProps) => {
+  const { userId } = useAuth();
+
+  const authorLabel = userId === authorId ? "You" : authorName;
+  const createdAtLabel = formatDistanceToNow(createdAt, {
+    addSuffix: true,
+  });
+
+  const {
+    mutate: onFavorite,
+    pending: pendingFavorite,
+  } = useApiMutation(api.board.favorite);
+  const {
+    mutate: onUnfavorite,
+    pending: pendingUnfavorite,
+  } = useApiMutation(api.board.unfavorite);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      onUnfavorite({ id })
+        .catch(() => toast.error("Failed to unfavorite"))
+    } else {
+      onFavorite({ id, orgId })
+        .catch(() => toast.error("Failed to favorite"))
+    }
   };
-
-const BoardCard =  ({
-    id,
-    title,
-    authorId,
-    authorName,
-    createdAt,
-    imageUrl,
-    orgId,
-    isFavorite,
-  }: BoardCardProps) => {
-
-    const { userId } = useAuth();
-
-    const authorLabel = userId === authorId ? "You" : authorName;
-    const createdAtLabel = formatDistanceToNow(createdAt, {
-      addSuffix: true,
-    });
-
-
-    const {
-      mutate: onFavorite,
-      pending: pendingFavorite,
-    } = useApiMutation(api.board.favorite);
-    const {
-      mutate: onUnfavorite,
-      pending: pendingUnfavorite,
-    } = useApiMutation(api.board.unfavorite);
-  
-    const toggleFavorite = () => {
-      if (isFavorite) {
-        onUnfavorite({ id })
-          .catch(() => toast.error("Failed to unfavorite"))
-      } else {
-        onFavorite({ id, orgId })
-          .catch(() => toast.error("Failed to favorite"))
-      }
-    };
 
   return (
     <Link href={`/board/${id}`}>
@@ -96,15 +98,12 @@ const BoardCard =  ({
       </div>
     </Link>
   );
-}
-
+};
 
 BoardCard.Skeleton = function BoardCardSkeleton() {
-    return (
-      <div className="aspect-[100/127] rounded-lg overflow-hidden">
-        <Skeleton className="h-full w-full" />
-      </div>
-    );
-  };
-  
-export default BoardCard;
+  return (
+    <div className="aspect-[100/127] rounded-lg overflow-hidden">
+      <Skeleton className="h-full w-full" />
+    </div>
+  );
+};

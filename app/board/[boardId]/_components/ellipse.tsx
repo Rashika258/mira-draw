@@ -1,19 +1,19 @@
-import { colorToCss } from '@/lib/utils';
-import { EllipseLayer } from '@/types/canvas';
-import * as React from 'react';
+import { colorToCss } from "@/lib/utils";
+import { EllipseLayer } from "@/types/canvas";
 
-export interface IEllipseProps {
-    id: string;
-    layer: EllipseLayer;
-    onPointerDown: (e: React.PointerEvent, id: string) => void;
-    selectionColor?: string;
-}
+interface EllipseProps {
+  id: string;
+  layer: EllipseLayer;
+  onPointerDown: (e: React.PointerEvent, id: string) => void;
+  selectionColor?: string;
+};
 
-export function Ellipse (props: IEllipseProps) {
-    const {  id,
-        layer,
-        onPointerDown,
-        selectionColor,} = props
+export const Ellipse = ({
+  id,
+  layer,
+  onPointerDown,
+  selectionColor,
+}: EllipseProps) => {
   return (
     <ellipse
       className="drop-shadow-md"
@@ -33,4 +33,4 @@ export function Ellipse (props: IEllipseProps) {
       strokeWidth="1"
     />
   );
-}
+};

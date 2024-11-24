@@ -12,32 +12,45 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-interface Props {
+interface ConfirmModalProps {
   children: React.ReactNode;
   onConfirm: () => void;
   disabled?: boolean;
   header: string;
   description?: string;
-}
+};
 
-const ConfirmModal: React.FC<Props> = (props) => {
-  const { children, onConfirm, disabled, header, description } = props;
-
+export const ConfirmModal = ({
+  children,
+  onConfirm,
+  disabled,
+  header,
+  description,
+}: ConfirmModalProps) => {
   const handleConfirm = () => {
     onConfirm();
   };
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
+        {children}
+      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{header}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogTitle>
+            {header}
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            {description}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction disabled={disabled} onClick={handleConfirm}>
+          <AlertDialogAction
+            disabled={disabled}
+            onClick={handleConfirm}
+          >
             Confirm
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -45,5 +58,3 @@ const ConfirmModal: React.FC<Props> = (props) => {
     </AlertDialog>
   );
 };
-
-export default ConfirmModal;

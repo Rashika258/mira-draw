@@ -1,18 +1,24 @@
-import { getSvgPathFromStroke } from "@/lib/utils";
-import * as React from "react";
 import getStroke from "perfect-freehand";
 
-export interface IPathProps {
+import { getSvgPathFromStroke } from "@/lib/utils";
+
+interface PathProps {
   x: number;
   y: number;
   points: number[][];
   fill: string;
-  onPointerDown?: (e: React.PointerEvent) => void;
+  onPointerDown?: (e: React.PointerEvent)  => void;
   stroke?: string;
-}
+};
 
-export function Path(props: IPathProps) {
-  const { x, y, points, fill, onPointerDown, stroke } = props;
+export const Path = ({
+  x,
+  y,
+  points,
+  fill,
+  onPointerDown,
+  stroke,
+}: PathProps) => {
   return (
     <path
       className="drop-shadow-md"
@@ -35,4 +41,4 @@ export function Path(props: IPathProps) {
       strokeWidth={1}
     />
   );
-}
+};

@@ -1,19 +1,23 @@
-import Hint from '@/components/hint';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import * as React from 'react';
+import { Hint } from "@/components/hint";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar";
 
-export interface IUserAvatarProps {
-    src?: string;
-    name?: string;
-    fallback?: string;
-    borderColor?: string;
-}
+interface UserAvatarProps {
+  src?: string;
+  name?: string;
+  fallback?: string;
+  borderColor?: string;
+};
 
-export function UserAvatar(props: IUserAvatarProps) {
-    const {  src,
-        name,
-        fallback,
-        borderColor,} = props
+export const UserAvatar = ({
+  src,
+  name,
+  fallback,
+  borderColor,
+}: UserAvatarProps) => {
   return (
     <Hint label={name || "Teammate"} side="bottom" sideOffset={18}>
       <Avatar
@@ -27,4 +31,4 @@ export function UserAvatar(props: IUserAvatarProps) {
       </Avatar>
     </Hint>
   );
-}
+};

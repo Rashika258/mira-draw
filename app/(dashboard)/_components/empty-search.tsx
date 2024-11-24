@@ -1,11 +1,6 @@
-import React from 'react';
-import Image from "next/image"
+import Image from "next/image";
 
-interface Props {
-
-}
-
-const EmptySearch: React.FC<Props> = (props) => {
+export const EmptySearch = () => {
   return (
     <div className="h-full flex flex-col items-center justify-center">
       <Image
@@ -22,6 +17,4 @@ const EmptySearch: React.FC<Props> = (props) => {
       </p>
     </div>
   );
-}
-
-export default EmptySearch;
+};
